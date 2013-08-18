@@ -4,7 +4,7 @@ class Phrase
   end
 
   def word_count
-    words_and_occurences = unique_words.map do |word|
+    words_and_occurences = words.map do |word|
       [word, occurences(word)]
     end
 
@@ -12,10 +12,6 @@ class Phrase
   end
 
   private
-
-  def unique_words
-    words.uniq
-  end
 
   def words
     @words ||= @phrase.downcase.gsub(/[^a-z0-9, ]/, '').split(/[, ]+/)
