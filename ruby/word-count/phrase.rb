@@ -18,11 +18,7 @@ class Phrase
   end
 
   def words
-    @words ||= phrase_with_normalized_case.gsub(/[^a-z0-9, ]/, '').split(/[, ]+/)
-  end
-
-  def phrase_with_normalized_case
-    @phrase.downcase
+    @words ||= @phrase.downcase.gsub(/[^a-z0-9, ]/, '').split(/[, ]+/)
   end
 
   def occurences word
