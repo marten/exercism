@@ -7,14 +7,13 @@ class Phrase
     words_and_occurences = words.map do |word|
       [word, occurences(word)]
     end
-
     Hash[words_and_occurences]
   end
 
   private
 
   def words
-    @words ||= @phrase.downcase.gsub(/[^a-z0-9, ]/, '').split(/[, ]+/)
+    @words ||= @phrase.downcase.scan(/[a-z0-9]+/)
   end
 
   def occurences word
