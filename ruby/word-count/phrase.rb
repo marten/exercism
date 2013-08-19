@@ -4,10 +4,11 @@ class Phrase
   end
 
   def word_count
-    words_and_occurences = words.map do |word|
-      [word, occurences(word)]
+    {}.tap do |word_count|
+      words.each do |word|
+        word_count[word] = occurences(word)
+      end
     end
-    Hash[words_and_occurences]
   end
 
   private
