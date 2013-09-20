@@ -1,8 +1,8 @@
 class Anagram
-  attr_reader :word
+  attr_reader :subject
 
-  def initialize(word)
-    @word = word
+  def initialize(subject)
+    @subject = subject
   end
 
   def match(candidates)
@@ -17,16 +17,16 @@ class Anagram
   end
 
   def =~(other)
-    signature == other.signature
+    alphagram == other.alphagram
   end
 
   protected
 
   def normalized
-    @word.downcase
+    @subject.downcase
   end
 
-  def signature
+  def alphagram
     normalized.chars.sort
   end
 end
