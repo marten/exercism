@@ -29,7 +29,7 @@ class DNA
   prepend DNAAdapter
 
   def initialize(sequence)
-    raise ArgumentError unless sequence.all? {|i| i.dna? }
+    raise ArgumentError unless sequence.all? {|nucleotide| nucleotide.dna? }
     @sequence = sequence
   end
 
