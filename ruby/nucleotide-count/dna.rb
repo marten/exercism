@@ -19,6 +19,7 @@ module DNAAdapter
   def initialize(sequence)
     super(sequence.chars.map{|char| Nucleotide.new(char) })
   end
+
   def count(nucleotide)
     super(Nucleotide.new(nucleotide))
   end
@@ -28,18 +29,18 @@ class DNA
   prepend DNAAdapter
 
   def initialize(sequence)
-    raise ArgumentError if sequence.find {|i| not i.dna? }
+    raise ArgumentError unless sequence.all? {|i| i.dna? }
     @sequence = sequence
   end
 
   def count(nucleotide)
     raise ArgumentError unless nucleotide.valid?
-    @sequence.select {|i| i == nucleotide }.size
+    @sequence.count {|i| i == nucleotide }
   end
 
   def nucleotide_counts
-    Nucleotide::DNA.each_with_object({}) do |nucleotide, nucleotide_counts|
-      nucleotide_counts[nucleotide] = count(nucleotide)
+    Nucleotide::DNA.each_with_object({}) do |nucleotide, nucleotide_count|
+      nucleotide_count[nucleotide] = count(nucleotide)
     end
   end
 end
