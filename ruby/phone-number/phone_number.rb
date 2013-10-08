@@ -11,8 +11,16 @@ class PhoneNumber
     @number[0..2]
   end
 
+  def central_office_code
+    @number[3..5]
+  end
+
+  def station_code
+    @number[6..9]
+  end
+
   def to_s
-    "(%d%d%d) %d%d%d-%d%d%d%d" % number.chars
+    "(%d) %d-%d" % [area_code, central_office_code, station_code]
   end
 
   def parse(input_number)
