@@ -1,10 +1,16 @@
 class PhoneNumber
+  USA_PHONE_NUMBER_LENGTH = 10
+
   def initialize(number)
     @number = parse(number)
   end
 
   def number
     @number
+  end
+
+  def to_s
+    "(%d) %d-%d" % [area_code, central_office_code, station_code]
   end
 
   def area_code
@@ -19,16 +25,14 @@ class PhoneNumber
     @number[6..9]
   end
 
-  def to_s
-    "(%d) %d-%d" % [area_code, central_office_code, station_code]
-  end
-
   def parse(input_number)
-    number = input_number
-    number = only_digits(number)
-    number = strip_usa_country_code(number)
-    number = invalid_number if invalid(number)
-    number
+    number = strip_usa_country_code(only_digits(input_number))
+
+    if valid?(number)
+      number
+    else
+      default_number
+    end
   end
 
   def only_digits(number)
@@ -36,15 +40,16 @@ class PhoneNumber
   end
 
   def strip_usa_country_code(number)
-    return number[1..-1] if number.start_with?('1') and number.size == 11
-    number
+    return number unless number.size == USA_PHONE_NUMBER_LENGTH + 1
+    return number unless number.start_with?('1')
+    number[1..-1]
   end
 
-  def invalid(number)
-    number.size != 10
+  def valid?(number)
+    number.size == USA_PHONE_NUMBER_LENGTH
   end
 
-  def invalid_number
-    '0000000000'
+  def default_number
+    '0' * USA_PHONE_NUMBER_LENGTH
   end
 end
