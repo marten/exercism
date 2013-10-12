@@ -1,5 +1,5 @@
-(ns bob)
-(use '[clojure.string :only (upper-case trim)])
+(ns bob
+  (:require [clojure.string :refer (upper-case blank?)]))
 
 (def responses
   {:silence "Fine. Be that way!"
@@ -9,7 +9,7 @@
 
 (defn message-type [message]
   (cond
-    (empty? (trim message))          :silence
+    (blank? message)                 :silence
     (= (upper-case message) message) :shout
     (= (last message) \?)            :question
     :else                            :other))
