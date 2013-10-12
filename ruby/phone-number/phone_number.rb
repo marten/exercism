@@ -40,9 +40,15 @@ class PhoneNumber
   end
 
   def strip_usa_country_code(number)
-    return number unless number.size == USA_PHONE_NUMBER_LENGTH + 1
-    return number unless number.start_with?('1')
-    number[1..-1]
+    if has_usa_country_code?(number)
+      number[1..-1]
+    else
+      number
+    end
+  end
+
+  def has_usa_country_code?(number)
+    number.size == USA_PHONE_NUMBER_LENGTH + 1 and number.start_with?('1')
   end
 
   def valid?(number)
